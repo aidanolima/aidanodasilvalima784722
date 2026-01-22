@@ -62,13 +62,13 @@ Siga estas instruções para configurar e executar o projeto em seu ambiente loc
 
 1.  Clone o repositório:
     ```bash
-    git clone https://github.com/seu-usuario/pet-admin.git
+    git clone https://github.com/aidanolima/aidanodasilvalima784722
     ```
 2.  Navegue até o diretório do projeto:
     ```bash
     cd pet-admin
     ```
-3.  Instale as dependências:
+3.  Instale as dependências:orEC
     ```bash
     npm install
     ```
@@ -93,6 +93,20 @@ A aplicação estará disponível em `http://localhost:5173`.
 *   `npm run test:watch`: Executa os testes em modo de observação.
 *   `npm run test:coverage`: Gera um relatório de cobertura de testes.
 *   `npm run test:ui`: Inicia a interface de usuário do Vitest.
+
+## Arquitetura e Requisitos Sênior
+
+1.  Este projeto foi estruturado para atender aos critérios rigorosos de escalabilidade e resiliência exigidos para o nível Sênior:
+
+2.  Padrão Facade & Arquitetura em Camadas: A aplicação utiliza o padrão Facade através de uma camada de serviços (src/services/) que isola a complexidade das chamadas de API e normalização de dados dos componentes de interface. Isso garante que a UI permaneça "burra" e focada apenas na renderização, facilitando a troca de provedores de dados sem impacto visual.
+
+3.  Gerenciamento de Estado Reativo: O estado global de autenticação e sessão é gerenciado via React Context API, implementando um fluxo de dados reativo que se assemelha ao comportamento de um BehaviorSubject, garantindo que todos os componentes dependentes sejam notificados e reajam instantaneamente a mudanças de estado.
+
+4.  Testes Unitários: A qualidade do código é assegurada por testes unitários desenvolvidos com Vitest e React Testing Library, focando na validação das regras de negócio contidas nos serviços e na integridade dos componentes críticos.
+
+5.  Health Checks e Resiliência (Liveness/Readiness): Através da containerização com Nginx, o artefato fornece endpoints de prontidão. O servidor atua como um sinalizador de Readiness para orquestradores; uma vez que o container está ativo e o Nginx responde na porta 80, a aplicação é considerada apta para o tráfego.
+
+6.  sContainerização Isolada: O projeto utiliza Docker com multi-stage build. Isso isola completamente as dependências de desenvolvimento (build) do artefato final de produção, resultando em uma imagem imutável, leve e segura, contendo apenas o necessário para a execução do sistema.
 
 ## Estrutura do Projeto
 
