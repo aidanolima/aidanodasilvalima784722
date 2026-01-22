@@ -51,7 +51,7 @@ Para atender aos critérios de **escalabilidade** e **manutenibilidade** do edit
 
 ## Começando
 
-Em breve mais informações e evoluções...
+Siga estas instruções para configurar e executar o projeto em seu ambiente local.
 
 ### Pré-requisitos
 
@@ -151,4 +151,3 @@ Para executar o container, .DockerFile execute:
 ```bash
 docker run -d -p 80:80 pet-admin
 ```
-
