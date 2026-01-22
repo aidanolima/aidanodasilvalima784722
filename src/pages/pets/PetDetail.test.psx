@@ -1,0 +1,17 @@
+// src/pages/pets/PetDetail.test.tsx
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { PetDetail } from './PetDetail';
+import { describe, it, expect } from 'vitest';
+
+describe('PetDetail', () => {
+  it('deve renderizar o botão de voltar à listagem', () => {
+    render(
+      <MemoryRouter>
+        <PetDetail />
+      </MemoryRouter>
+    );
+    const backButton = screen.getByText(/voltar para a listagem/i);
+    expect(backButton).toBeDefined();
+  });
+});
