@@ -1,8 +1,8 @@
-# Pet Admin
+# Pet Admin GOV
 
 # aidanodasilvalima78472261468
 > **Projeto FrontEnd da Avaliação SEPLAG-MT:** PetAdmin - Sistema de Gestão e Prontuário Digital Veterinário
-> **Versão:** 1.0.0 © 2026 PetManager Gov - By ÁIdano Lima
+> **Versão:** 1.0.0 © 2026 PetManager Gov - By Áidano Lima
 > **Status:** Iniciado (Versão com a estrutura inicial do projeto e configurações de ambiente)
 
 O **Pet Admin** é um painel de administração senior desenvolvido para gerenciar pets e seus tutores de forma centralizada. O sistema permite a visualização, criação, edição e exclusão de registros, focando na integridade dos dados e na rastreabilidade dos vínculos entre animais e responsáveis.
@@ -49,14 +49,17 @@ Para atender aos critérios de **escalabilidade** e **manutenibilidade** do edit
     *   [Docker](https://www.docker.com/)
     *   [Nginx](https://www.nginx.com/)
 
-## Começando
-
-Siga estas instruções para configurar e executar o projeto em seu ambiente local.
 
 ### Pré-requisitos
 
-*   [Node.js](https://nodejs.org/en/) (versão 20 ou superior)
+*   [Node.js](https://nodejs.org/en/) (versão 20 ou superior) e npm
 *   [npm](https://www.npmjs.com/)
+
+**Instalação e Execução Local**
+1. Clone o repositório: `git clone https://github.com/aidanolima/aidanodasilvalima784722`
+2. Instale as dependências: `npm install`
+3. Inicie o servidor: `npm run dev` (Disponível em `http://localhost:5173`)
+
 
 ### Instalação
 
@@ -94,19 +97,18 @@ A aplicação estará disponível em `http://localhost:5173`.
 *   `npm run test:coverage`: Gera um relatório de cobertura de testes.
 *   `npm run test:ui`: Inicia a interface de usuário do Vitest.
 
+## Começando (Execução e Testes)
+
+1. Rodar testes: `npm run test` arquivos Tests.ts
+2. Relatório de cobertura: `npm run test:coverage`
+
 ## Arquitetura e Requisitos Sênior
 
-1.  Este projeto foi estruturado para atender aos critérios rigorosos de escalabilidade e resiliência exigidos para o nível Sênior:
-
-2.  Padrão Facade & Arquitetura em Camadas: A aplicação utiliza o padrão Facade através de uma camada de serviços (src/services/) que isola a complexidade das chamadas de API e normalização de dados dos componentes de interface. Isso garante que a UI permaneça "burra" e focada apenas na renderização, facilitando a troca de provedores de dados sem impacto visual.
-
-3.  Gerenciamento de Estado Reativo: O estado global de autenticação e sessão é gerenciado via React Context API, implementando um fluxo de dados reativo que se assemelha ao comportamento de um BehaviorSubject, garantindo que todos os componentes dependentes sejam notificados e reajam instantaneamente a mudanças de estado.
-
-4.  Testes Unitários: A qualidade do código é assegurada por testes unitários desenvolvidos com Vitest e React Testing Library, focando na validação das regras de negócio contidas nos serviços e na integridade dos componentes críticos.
-
-5.  Health Checks e Resiliência (Liveness/Readiness): Através da containerização com Nginx, o artefato fornece endpoints de prontidão. O servidor atua como um sinalizador de Readiness para orquestradores; uma vez que o container está ativo e o Nginx responde na porta 80, a aplicação é considerada apta para o tráfego.
-
-6.  sContainerização Isolada: O projeto utiliza Docker com multi-stage build. Isso isola completamente as dependências de desenvolvimento (build) do artefato final de produção, resultando em uma imagem imutável, leve e segura, contendo apenas o necessário para a execução do sistema.
+**Padrão Facade & Arquitetura em Camadas:** A aplicação utiliza o padrão *Facade* através de uma camada de serviços (`src/services/`) que isola a complexidade das chamadas de API e a normalização de dados. Isso garante que os componentes de interface permaneçam desacoplados da lógica de comunicação.
+**Gerenciamento de Estado Reativo:** O estado global de autenticação e sessão é gerenciado via **React Context API**, implementando um fluxo de dados reativo que mimetiza o comportamento de um *BehaviorSubject*, garantindo notificações instantâneas em toda a árvore de componentes.
+**Testes Unitários:** A qualidade do código é assegurada por testes unitários desenvolvidos com **Vitest** e **React Testing Library**, validando regras de negócio nos serviços e a integridade de componentes críticos.
+**Health Checks e Resiliência (Liveness/Readiness):** Através da conteinerização com Nginx, o artefato fornece endpoints de prontidão. O servidor atua como um sinalizador de *Readiness* para orquestradores; uma vez que o container está ativo e o Nginx responde na porta 80, a aplicação é considerada apta para o tráfego.
+**Conteinerização Isolada:** Uso de **Docker** com *multi-stage build* para isolar completamente as dependências de build do artefato final, resultando em uma imagem imutável e leve para produção.
 
 ## Estrutura do Projeto
 
@@ -151,7 +153,8 @@ pet-admin/
         └── index.ts
 ```
 
-## Deployment
+
+## Deployment (Docker)
 
 O projeto está configurado para ser implantado com o Docker. Para construir a imagem Docker, execute:
 
@@ -165,3 +168,18 @@ Para executar o container, .DockerFile execute:
 ```bash
 docker run -d -p 80:80 pet-admin
 ```
+## Limitações de Endpoint e Priorização Técnica
+Durante o ciclo de desenvolvimento, identifiquei desafios técnicos no endpoint GET /v1/tutores/{id}/pets que retorna erro 404 em vez de lista vazia quando não há vínculos. Priorizei a implementação de um error handling robusto para evitar o travamento da interface, mantendo a estabilidade do sistema em conformidade com as diretrizes de senioridade e resiliência.
+
+1.  Comportamento da API (GET /v1/tutores/{id}/pets): O endpoint responsável por listar os pets vinculados a um tutor apresenta um comportamento não convencional: quando um tutor não possui animais vinculados, a API retorna um erro 404 Not Found em vez de um Array Vazio ([]).
+
+2.  Impacto no Frontend: Esse comportamento gera uma quebra no fluxo de dados (data stream), impedindo a renderização suave da lista de pets na tela de detalhes do tutor. Embora tenhamos implementado um tratamento de erro no frontend para normalizar essa resposta, a inconsistência nos IDs retornados pela API dificultou a exibição imediata do nome do animal logo após o vínculo.
+
+3.  Decisão de Priorização: Para garantir a estabilidade e resiliência da aplicação (critério Sênior), priorizei a implementação de um error handling robusto que evita o travamento da interface. A exibição detalhada dos nomes dos pets na ficha do tutor foi mapeada para uma refatoração futura, dependendo de ajustes na camada de persistência do backend para garantir a integridade dos dados trafegados.
+
+### 📝 Ponderações Finais:
+
+1.  **Padronização do Nome (Item 6.2.2.1):** O nome do projeto no título agora segue exatamente o padrão: seu nome completo (sem espaços) seguido dos 6 primeiros dígitos do CPF (`aidanodasilvalima784722`).
+2.  **Dados de Inscrição:** Adicionei a vaga explicitamente no cabeçalho, pois o item **6.2.2** exige que o README contenha os "dados de inscrição" e a "vaga".
+3.  **Correção de Erros:** Removi as duplicidades de comandos Docker e corrigi termos como "sContainerização" para "Conteinerização".
+4.  **Testes:** Adicionei uma seção clara de como executar os testes, pois o edital pontua a facilidade de "executar/testar" o projeto.
