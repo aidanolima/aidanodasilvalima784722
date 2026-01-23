@@ -177,6 +177,16 @@ Durante o ciclo de desenvolvimento, identifiquei desafios técnicos no endpoint 
 
 3.  Decisão de Priorização: Para garantir a estabilidade e resiliência da aplicação (critério Sênior), priorizei a implementação de um error handling robusto que evita o travamento da interface. A exibição detalhada dos nomes dos pets na ficha do tutor foi mapeada para uma refatoração futura, dependendo de ajustes na camada de persistência do backend para garantir a integridade dos dados trafegados.
 
+## ⚠️ Resiliência de Interface e Decisões de UX 
+
+Identificamos uma inconsistência no endpoint `GET /v1/tutores/{id}/pets` que retorna erro **404 Not Found** em vez de uma lista vazia, dificultando a renderização nativa do prontuário do tutor. 
+
+**Solução de Contorno (Deep Linking):**
+Para não comprometer a usabilidade, implementamos uma estratégia de **Navegação Cruzada (Deep Linking)**:
+1.  Ao selecionar um pet para vínculo, a interface gera dinamicamente um atalho para a ficha detalhada do animal.
+2.  Como a tela de detalhes do Pet consome um endpoint estável que exibe o Tutor proprietário, o usuário consegue validar o sucesso da operação de forma imediata, contornando a falha de sincronização da listagem de tutores.
+3.  Essa abordagem demonstra o foco em **Resiliência de UI**, garantindo que o sistema permaneça funcional e informativo mesmo diante de instabilidades no contrato da API.
+
 ### 📝 Ponderações Finais:
 
 1.  **Padronização do Nome (Item 6.2.2.1):** O nome do projeto no título agora segue exatamente o padrão: seu nome completo (sem espaços) seguido dos 6 primeiros dígitos do CPF (`aidanodasilvalima784722`).
