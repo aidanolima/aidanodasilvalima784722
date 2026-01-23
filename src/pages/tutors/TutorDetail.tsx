@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom'; // Adicionado Link aqui
 import { 
   ArrowLeft, User, Dog, Loader2, Edit3, Heart, 
-  Phone, MapPin, Link2, Link2Off, RefreshCw 
+  Phone, MapPin, Link2, Link2Off, RefreshCw, ExternalLink // Adicionado ExternalLink
 } from 'lucide-react';
 import { tutorService } from '../../services/tutorService';
 import { petService } from '../../services/petService';
@@ -31,20 +31,21 @@ export function TutorDetail() {
       ]);
 
       setTutor(tutorData);
-      setTutorPets(linkedPetsData);
+      setTutorPets(linkedPetsData || []);
       setAllPets(allPetsData.content || []);
 
-      // Seleção automática do pet vinculado para facilitar desvínculo
       if (linkedPetsData && linkedPetsData.length > 0) {
         setSelectedPetId(linkedPetsData[0].id.toString());
       } else {
         setSelectedPetId('');
       }
     } catch (e) {
+      setTutorPets([]); 
       toast.error("Erro na sincronização dos dados.");
     } finally {
       setLoading(false);
     }
+    // Mantido apenas o 'id' para evitar o loop de renderização (pisca-pisca)
   }, [id]);
 
   useEffect(() => { loadData(); }, [loadData]);
@@ -117,7 +118,6 @@ export function TutorDetail() {
                 </div>
               </div>
 
-              {/* RENDERIZAÇÃO DINÂMICA DO NINO GURI E OUTROS */}
               {tutorPets.length > 0 ? (
                 tutorPets.map(p => (
                   <div key={p.id} className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4 animate-in zoom-in-95">
@@ -145,36 +145,51 @@ export function TutorDetail() {
               <Link2 size={16} /> Painel de Vínculos de Animais
             </h3>
 
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-1">
-                <select 
-                  value={selectedPetId}
-                  onChange={(e) => setSelectedPetId(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-slate-900 outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-300 font-bold transition-all appearance-none cursor-pointer"
-                  style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%232563eb' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: `right 1rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.5em 1.5em` }}
-                >
-                  <option value="">Selecione um animal da lista...</option>
-                  {allPets.map((p) => <option key={p.id} value={p.id}>{p.nome.toUpperCase()}</option>)}
-                </select>
-              </div>
-              
-              <div className="flex gap-2">
-                <Button 
-                  onClick={handleLink} 
-                  title="Vincular PET"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 rounded-2xl h-13 shadow-lg shadow-blue-100 transition-all"
-                >
-                  {updating ? <RefreshCw className="animate-spin" size={20} /> : <Link2 size={20} />}
-                </Button>
+            <div className="space-y-4"> {/* Adicionado para empilhar verticalmente */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-1">
+                  <select 
+                    value={selectedPetId}
+                    onChange={(e) => setSelectedPetId(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-slate-900 outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-300 font-bold transition-all appearance-none cursor-pointer"
+                    style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%232563eb' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: `right 1rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.5em 1.5em` }}
+                  >
+                    <option value="">Selecione um animal da lista...</option>
+                    {allPets.map((p) => <option key={p.id} value={p.id}>{p.nome.toUpperCase()}</option>)}
+                  </select>
+                </div>
+                
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={handleLink} 
+                    title="Vincular PET"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 rounded-2xl h-13 shadow-lg shadow-blue-100 transition-all"
+                  >
+                    {updating ? <RefreshCw className="animate-spin" size={20} /> : <Link2 size={20} />}
+                  </Button>
 
-                <Button 
-                  onClick={handleUnlink} 
-                  title="Desvincular PET"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 rounded-2xl h-13 shadow-lg shadow-blue-100 transition-all"
-                >
-                  {updating ? <RefreshCw className="animate-spin" size={20} /> : <Link2Off size={20} />}
-                </Button>
+                  <Button 
+                    onClick={handleUnlink} 
+                    title="Desvincular PET"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 rounded-2xl h-13 shadow-lg shadow-blue-100 transition-all"
+                  >
+                    {updating ? <RefreshCw className="animate-spin" size={20} /> : <Link2Off size={20} />}
+                  </Button>
+                </div>
               </div>
+
+              {/* LINK DINÂMICO DE ATALHO PARA DETALHE DO PET SELECIONADO */}
+              {selectedPetId && (
+                <div className="px-2 pt-2 animate-in slide-in-from-top-2 duration-300">
+                  <Link 
+                    to={`/pets/${selectedPetId}`}
+                    className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-2 hover:text-blue-800 transition-all group"
+                  >
+                    <ExternalLink size={14} className="group-hover:scale-110 transition-transform" /> 
+                    Clique aqui para ver ficha técnica e confirmar proprietário deste Pet
+                  </Link>
+                </div>
+              )}
             </div>
           </section>
 
