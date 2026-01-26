@@ -70,7 +70,7 @@ Para atender aos critérios de **escalabilidade** e **manutenibilidade** do edit
     ```
 2.  Navegue até o diretório do projeto:
     ```bash
-    cd pet-admin
+    cd aidanodasilvalima784722
     ```
 3.  Instale as dependências:orEC
     ```bash
@@ -160,14 +160,14 @@ pet-admin/
 O projeto está configurado para ser implantado com o Docker. Para construir a imagem Docker, execute:
 
 ```bash
-docker build -t pet-admin .
-docker run -d -p 80:80 pet-admin
+docker build -t aidanodasilvalima784722 .
+docker run -d -p 80:80 aidanodasilvalima784722
 ```
 
 Para executar o container, .DockerFile execute:
 
 ```bash
-docker run -d -p 80:80 pet-admin
+docker run -d -p 80:80 aidanodasilvalima784722
 ```
 ## Limitações de Endpoint e Priorização Técnica
 Durante o ciclo de desenvolvimento, identifiquei desafios técnicos no endpoint GET /v1/tutores/{id}/pets que retorna erro 404 em vez de lista vazia quando não há vínculos. Priorizei a implementação de um error handling robusto para evitar o travamento da interface, mantendo a estabilidade do sistema em conformidade com as diretrizes de senioridade e resiliência.
