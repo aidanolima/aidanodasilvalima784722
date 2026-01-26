@@ -20,6 +20,7 @@ Para atender aos critérios de **escalabilidade** e **manutenibilidade** do edit
 
 * **Autenticação de Usuário:** Sistema de login seguro para acesso ao painel administrativo.
 * **Gerenciamento de Tutores:**
+    * Dashboard dinâmico com informações dos Tutores e Pets. 
     * Listagem paginada e detalhamento completo de cada tutor.
     * CRUD completo (Criar, Visualizar, Editar e Excluir).
     * Vínculo direto com a lista de pets na ficha do tutor.
@@ -186,6 +187,13 @@ Para não comprometer a usabilidade, implementamos uma estratégia de **Navegaç
 1.  Ao selecionar um pet para vínculo, a interface gera dinamicamente um atalho para a ficha detalhada do animal.
 2.  Como a tela de detalhes do Pet consome um endpoint estável que exibe o Tutor proprietário, o usuário consegue validar o sucesso da operação de forma imediata, contornando a falha de sincronização da listagem de tutores.
 3.  Essa abordagem demonstra o foco em **Resiliência de UI**, garantindo que o sistema permaneça funcional e informativo mesmo diante de instabilidades no contrato da API.
+
+## 📊 Notas sobre o Dashboard (Indicadores)
+
+O indicador de **"Pets Vinculados"** no Dashboard foi implementado com uma lógica de agregação reativa. 
+
+* **Observação Técnica:** Devido à arquitetura de *Lazy Loading* do Backend, as rotas de listagem massiva (`/v1/pets` e `/v1/tutores`) não retornam os objetos de relacionamento por padrão para otimização de banda.
+* **Decisão de Engenharia:** Optamos por não realizar chamadas individuais (N+1 queries) para cada registro no Dashboard, priorizando a performance e o tempo de resposta da interface (*First Contentful Paint*). Em um ambiente de produção, este indicador seria suprido por um endpoint de agregação via banco de dados (ex: `COUNT` com `JOIN`) ou via serviço de cache (Redis).
 
 ### 📝 Ponderações Finais:
 
