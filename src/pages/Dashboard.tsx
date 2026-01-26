@@ -126,7 +126,7 @@ export function Dashboard() {
             </div>
             <div>
               <span className="block font-black text-slate-800 uppercase text-xs">Novo Pet</span>
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Adicionar registro</span>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Adicionar Pets</span>
             </div>
           </button>
 
@@ -139,7 +139,7 @@ export function Dashboard() {
             </div>
             <div>
               <span className="block font-black text-slate-800 uppercase text-xs">Novo Tutor</span>
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Cadastrar cliente</span>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Adicionar Tutor</span>
             </div>
           </button>
 
@@ -152,7 +152,7 @@ export function Dashboard() {
             </div>
             <div>
               <span className="block font-black text-slate-800 uppercase text-xs">Ver Listagem</span>
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Acessar base de dados</span>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Listagem PETs</span>
             </div>
           </button>
         </div>
