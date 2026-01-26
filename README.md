@@ -85,7 +85,7 @@ Para iniciar o servidor de desenvolvimento, execute:
 npm run dev
 ```
 
-A aplicação estará disponível em `http://localhost:5173`.
+A aplicação estará disponível local em `http://localhost:5173`.
 
 ## Scripts Disponíveis
 
@@ -180,20 +180,20 @@ Durante o ciclo de desenvolvimento, identifiquei desafios técnicos no endpoint 
 
 ## ⚠️ Resiliência de Interface e Decisões de UX 
 
-Identificamos uma inconsistência no endpoint `GET /v1/tutores/{id}/pets` que retorna erro **404 Not Found** em vez de uma lista vazia, dificultando a renderização nativa do prontuário do tutor. 
+Identifiquei uma limitação no endpoint `GET /v1/tutores/{id}/pets` que retorna erro **404 Not Found** em vez de uma lista vazia, dificultando a renderização nativa do prontuário do tutor. 
 
 **Solução de Contorno (Deep Linking):**
-Para não comprometer a usabilidade, implementamos uma estratégia de **Navegação Cruzada (Deep Linking)**:
+Para não comprometer a usabilidade, implementei uma estratégia de **Navegação Cruzada (Deep Linking)**:
 1.  Ao selecionar um pet para vínculo, a interface gera dinamicamente um atalho para a ficha detalhada do animal.
 2.  Como a tela de detalhes do Pet consome um endpoint estável que exibe o Tutor proprietário, o usuário consegue validar o sucesso da operação de forma imediata, contornando a falha de sincronização da listagem de tutores.
 3.  Essa abordagem demonstra o foco em **Resiliência de UI**, garantindo que o sistema permaneça funcional e informativo mesmo diante de instabilidades no contrato da API.
 
-## 📊 Notas sobre o Dashboard (Indicadores)
+## 📊 Notas sobre o Dashboard (Indicadores), "Plus do sistema"!
 
 O indicador de **"Pets Vinculados"** no Dashboard foi implementado com uma lógica de agregação reativa. 
 
 * **Observação Técnica:** Devido à arquitetura de *Lazy Loading* do Backend, as rotas de listagem massiva (`/v1/pets` e `/v1/tutores`) não retornam os objetos de relacionamento por padrão para otimização de banda.
-* **Decisão de Engenharia:** Optamos por não realizar chamadas individuais (N+1 queries) para cada registro no Dashboard, priorizando a performance e o tempo de resposta da interface (*First Contentful Paint*). Em um ambiente de produção, este indicador seria suprido por um endpoint de agregação via banco de dados (ex: `COUNT` com `JOIN`) ou via serviço de cache (Redis).
+* **Decisão de Engenharia:** Optei por não realizar chamadas individuais (N+1 queries) para cada registro no Dashboard, priorizando a performance e o tempo de resposta da interface (*First Contentful Paint*). Em um ambiente de produção, este indicador seria suprido por um endpoint de agregação via banco de dados (ex: `COUNT` com `JOIN`) ou via serviço de cache (Redis).
 
 ### 📝 Ponderações Finais:
 
