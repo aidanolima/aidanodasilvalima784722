@@ -52,6 +52,23 @@ Para atender aos critérios de **escalabilidade** e **manutenibilidade** do edit
     *   [Docker](https://www.docker.com/)
     *   [Nginx](https://www.nginx.com/)
 
+## 🔄 CI/CD & Automação de Deploy
+
+O projeto utiliza um pipeline de Entrega Contínua (CD) totalmente automatizado via Netlify, integrado diretamente ao repositório do GitHub.
+*   **Fluxo de Trabalho:**
+    * Todo push realizado na branch principal (main) dispara automaticamente um gatilho (webhook) que inicia um novo processo de build nos servidores do Netlify.
+
+*   **Pipeline de Build:**
+    * O ambiente de build executa a verificação rigorosa de tipagem do TypeScript (tsc -b) e a minificação dos assets via Vite.
+
+*   **Resiliência de Produção:**
+    * Caso o build falhe (por erros de linting ou tipos), a versão anterior em produção é mantida, garantindo Zero Downtime.
+
+*   **Roteamento SPA:**
+    * Implementada a lógica de redirecionamento via arquivo _redirects para assegurar a integridade das rotas do React Router em ambiente de hospedagem estática.
+
+*   Nota: A automação do deploy elimina falhas humanas e garante que as correções de bugs e novas funcionalidades cheguem ao usuário final de forma rápida e segura, mimetizando os padrões de entrega de grandes órgãos governamentais.
+
 
 ### Pré-requisitos
 
