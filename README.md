@@ -228,7 +228,38 @@ O indicador de **"Pets Vinculados"** no Dashboard foi implementado com uma lógi
 3.  **Correção de Erros:** Removi as duplicidades de comandos Docker e corrigi termos como "sContainerização" para "Conteinerização".
 4.  **Testes:** Adicionei uma seção clara de como executar os testes, pois o edital pontua a facilidade de "executar/testar" o projeto.
 
-### 📝 Dados de Inscrição
-Candidato: Áidano da silva Lima
-Vaga: Perfil FrontEnd - Sênior
-Identificador: aidanodasilvalima784722
+### 📄 Mensagem de Entrega Técnica: Projeto PetAdmin
+Candidato: Áidano Lima Identificador: 
+aidanodasilvalima78472261468 
+Vaga: Desenvolvedor FrontEnd
+
+Prezada Banca Avaliadora,
+
+Submeto para análise o projeto PetAdmin, desenvolvido como parte da avaliação para o perfil de Desenvolvedor Sênior. Além do cumprimento integral dos requisitos funcionais, o projeto foi concebido sob uma ótica de alta disponibilidade e resiliência, aplicando os seguintes diferenciais:
+
+*   **1. Arquitetura e Padrões de Projeto**
+Camada de Serviços (Facade): Implementação de uma camada de serviços isolada para comunicação com a API, garantindo que os componentes de UI permaneçam desacoplados da lógica de dados.
+
+*   Interceptors de Segurança: Uso avançado de interceptores Axios para gerenciamento global de tokens JWT e tratamento proativo de expiração de sessão (401/403).
+
+*   **2. Estratégia de Resiliência (Failover & Mocking)**
+Failover Automático: Implementação de um interceptor de rede que detecta instabilidades na API oficial e chaveia automaticamente para um Mock Server local (JSON Server) em ambiente de desenvolvimento. Isso garante que o fluxo de trabalho e o desenvolvimento de UI não sejam interrompidos por falhas externas.
+
+Normalização de Dados: Tratamento de inconsistências de contrato (como retornos 404 em listas vazias) para assegurar que a interface permaneça estável e informativa para o usuário.
+
+*   **3. Experiência de Usuário (UX) Mobile-First**
+Interface Responsiva: Desenvolvimento de uma sidebar adaptativa com controle de estado reativo, utilizando transições suaves e backdrop de foco para dispositivos móveis, garantindo usabilidade em tablets e smartphones (essencial para uso em campo).
+
+*   **4. Infraestrutura e DevOps (CI/CD)**
+Automação Netlify: Configuração de pipeline de CI/CD com build automatizado e roteamento SPA via netlify.toml.
+
+Conteinerização: Disponibilização de Dockerfile multi-stage para geração de imagens leves e seguras com servidor Nginx otimizado.
+
+*   **5. Qualidade de Software**
+Testes Unitários: Suíte de testes desenvolvida com Vitest e React Testing Library, focando na integridade das regras de negócio e estabilidade dos componentes críticos.
+
+O projeto encontra-se disponível para teste em tempo real no link abaixo: 🔗 Link de Produção: https://aidanodasilvalima784722.netlify.app/
+
+Atenciosamente,
+
+**Áidano Lima**
