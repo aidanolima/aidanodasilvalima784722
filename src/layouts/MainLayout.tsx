@@ -26,7 +26,7 @@ export function MainLayout() {
         <header className="h-20 bg-white border-b border-slate-200 flex items-center px-6 justify-between md:hidden z-30">
           <div className="flex items-center gap-3 text-blue-600">
             <PawPrint size={28} fill="currentColor" />
-            <span className="text-xl font-black tracking-tighter text-slate-900 uppercase">PetAdmin</span>
+            <span className="text-xl font-black tracking-tighter text-slate-900 uppercase">PetAdminGov</span>
           </div>
           
           <button 

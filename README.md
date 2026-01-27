@@ -3,11 +3,11 @@
 > **aidanodasilvalima784722**
 > **https://aidanodasilvalima784722.netlify.app/**
 
-> **Projeto FrontEnd da Avaliação SEPLAG-MT:** PetAdmin - Sistema de Gestão e Prontuário Digital Veterinário
+> **Projeto FrontEnd da Avaliação SEPLAG-MT:** PetAdminGov - Sistema de Gestão de Pets e Tutores
 > **Versão:** 1.0.0 © 2026 PetManager Gov - By Áidano Lima
-> **Status:** Iniciado (Versão com a estrutura inicial do projeto e configurações de ambiente)
+> **Status:** Final 
 
-O **Pet Admin** é um painel de administração senior desenvolvido para gerenciar pets e seus tutores de forma centralizada. O sistema permite a visualização, criação, edição e exclusão de registros, focando na integridade dos dados e na rastreabilidade dos vínculos entre animais e responsáveis.
+O **Pet Admin GOV** é um painel de administração senior desenvolvido para gerenciar pets e seus tutores de forma centralizada. O sistema permite a visualização, criação, edição e exclusão de registros, focando na integridade dos dados e na rastreabilidade dos vínculos entre animais e responsáveis.
 
 ## 🚀 Diferenciais Técnicos e Evolução
 

@@ -87,7 +87,7 @@ export function Login() {
         </form>
 
         <div className="text-center text-xs text-slate-400">
-          Versão 1.0.0 &copy; 2026 PetAdmin - By Áidano Lima
+          Versão 1.0.0 &copy; 2026 PetAdminGov - By Áidano Lima
         </div>
       </div>
     </div>

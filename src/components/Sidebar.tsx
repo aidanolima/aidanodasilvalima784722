@@ -51,7 +51,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className="flex items-center gap-3 text-blue-600 mb-6">
           <PawPrint size={32} fill="currentColor" />
           <span className="text-2xl font-black tracking-tighter text-slate-900 uppercase">
-            PetAdmin
+            PetAdminGov
           </span>
         </div>
 
