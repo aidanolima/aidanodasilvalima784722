@@ -11,12 +11,19 @@ O **Pet Admin** é um painel de administração senior desenvolvido para gerenci
 
 ## 🚀 Diferenciais Técnicos e Evolução
 
-Para atender aos critérios de **escalabilidade** e **manutenibilidade** do edital, o projeto implementa:
+Para atender aos critérios de **escalabilidade**, **manutenibilidade** e **resiliência** do edital, o projeto implementa:
 
 * **Vínculos Dinâmicos:** Sistema robusto de associação entre Tutores e Pets, permitindo a gestão de prontuários complexos diretamente na ficha do responsável.
 * **Busca Global e Paginação:** Busca reativa no servidor que varre toda a base de dados (não apenas a página atual), sincronizada com paginação dinâmica para alta performance.
 * **Tipagem Estrita (TypeScript):** Uso de *Union Types* (PetEspecie) para garantir que diversas espécies (Aves, Peixes, Exóticos, etc.) sejam tratadas de forma segura.
 * **Máscaras e Validações:** Implementação de máscaras de entrada (ex: Telefone com 9 dígitos) e validações rígidas para garantir a qualidade dos dados inseridos.
+
+**PLUS**
+
+*   **Experiência Mobile-First**: (Hambúrguer Menu): Sidebar adaptativa com controle de estado reativo, transições suaves (CSS Transitions) e backdrop dinâmico para navegação em dispositivos móveis.
+*   **Dashboard com Agregação Reativa**: KPIs calculados em tempo real via processamento assíncrono paralelo, otimizando o carregamento de indicadores de vínculos.
+*   **Resiliência de Roteamento SPA**: Configuração de redirecionamento nativo para suporte a rotas dinâmicas em servidores de produção (Netlify).
+*   **Tipagem Estrita e Arquitetura de Serviços**: Isolamento completo da lógica de API em uma camada de serviços, garantindo desacoplamento e facilidade de manutenção.
 
 ## 🛠️ Funcionalidades
 

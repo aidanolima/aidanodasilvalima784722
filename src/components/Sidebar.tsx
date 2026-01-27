@@ -8,24 +8,21 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { signOut } = useAuth();
 
-  // Função robusta para lidar com o Logout
   const handleLogout = () => {
     try {
-      // 1. Chama a limpeza do contexto (remove token, etc.)
       signOut();
-      
-      // 2. Redirecionamento forçado para garantir que o estado do React seja resetado
-      // O 'replace' evita que o usuário volte ao dashboard ao clicar no botão 'voltar' do navegador
       window.location.replace('/login');
-      
     } catch (error) {
-      console.error("Erro ao tentar sair:", error);
-      // Fallback de segurança caso o signOut falhe
       localStorage.clear();
       window.location.href = '/login';
     }
@@ -37,10 +34,19 @@ export function Sidebar() {
     { icon: UserCircle, label: 'Tutores', path: '/tutores' },
   ];
 
+  // Função para navegar e fechar o menu no mobile
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    onClose(); // Fecha o menu automaticamente após o clique (UX Sênior)
+  };
+
   return (
-    <aside className="w-64 bg-white border-r border-slate-100 flex flex-col h-screen sticky top-0 z-50">
+    <aside className={`
+      fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-100 flex flex-col h-screen transition-transform duration-300 ease-in-out
+      md:static md:translate-x-0
+      ${isOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'}
+    `}>
       
-      {/* HEADER: LOGO + BOTÃO SAIR (POSIÇÃO SUPERIOR) */}
       <div className="p-8 border-b border-slate-50">
         <div className="flex items-center gap-3 text-blue-600 mb-6">
           <PawPrint size={32} fill="currentColor" />
@@ -49,7 +55,6 @@ export function Sidebar() {
           </span>
         </div>
 
-        {/* BOTÃO SAIR DO SISTEMA */}
         <button
           onClick={handleLogout}
           className="w-full flex items-center gap-3 px-4 py-3 bg-slate-50 text-slate-500 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-red-50 hover:text-red-600 transition-all duration-300 cursor-pointer group"
@@ -59,14 +64,13 @@ export function Sidebar() {
         </button>
       </div>
 
-      {/* NAVEGAÇÃO PRINCIPAL (AZUL ORIGINAL) */}
       <nav className="flex-1 p-4 space-y-2 mt-4">
         {menuItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
             <button
               key={item.path}
-              onClick={() => navigate(item.path)}
+              onClick={() => handleNavigation(item.path)}
               className={`
                 w-full flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-300 cursor-pointer
                 ${isActive 
