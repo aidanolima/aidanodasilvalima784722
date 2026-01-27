@@ -188,7 +188,7 @@ Para não comprometer a usabilidade, implementei uma estratégia de **Navegaçã
 2.  Como a tela de detalhes do Pet consome um endpoint estável que exibe o Tutor proprietário, o usuário consegue validar o sucesso da operação de forma imediata, contornando a falha de sincronização da listagem de tutores.
 3.  Essa abordagem demonstra o foco em **Resiliência de UI**, garantindo que o sistema permaneça funcional e informativo mesmo diante de instabilidades no contrato da API.
 
-## 📊 Notas sobre o Dashboard (Indicadores), "Plus do sistema"!
+## 📊 Notas sobre o Dashboard (Indicadores), "Sugestão Plus de melhoria para o sistema"!
 
 O indicador de **"Pets Vinculados"** no Dashboard foi implementado com uma lógica de agregação reativa. 
 
