@@ -27,28 +27,39 @@ export function PetDetail() {
     try {
       setLoading(true);
       const petData = await petService.getById(Number(id));
+
+      // 🛡️ PROTEÇÃO 1: Se o pet não existir, paramos aqui
+      if (!petData) {
+        toast.error("Animal não encontrado na base de dados.");
+        navigate('/pets');
+        return;
+      }
+
       setPet({ ...petData, urlFoto: petData.foto?.url || petData.urlFoto });
 
       const tutorsData = await tutorService.getAll(0, 100);
       setAllTutors(Array.isArray(tutorsData) ? tutorsData : tutorsData.content || []);
 
-      // CORREÇÃO: Alterado de .tutores para .tutor conforme erro TS2339 do build
-      // Usamos a sintaxe (petData as any) para garantir que o TS não trave no build se a interface divergir
-      const vinculo = (pet as any).tutor || (pet as any).tutores;
+      // 🛡️ PROTEÇÃO 2: Acesso seguro usando Optional Chaining (?.)
+      const vinculo = (petData as any)?.tutor || (petData as any)?.tutores;
       
-      if (vinculo && vinculo.length > 0) {
+      if (Array.isArray(vinculo) && vinculo.length > 0) {
         const tutorId = vinculo[0].id;
         const details = await tutorService.getById(tutorId);
         setCurrentTutor(details);
         setSelectedTutorId(tutorId.toString());
+      } else {
+        // Limpa estados se não houver vínculo
+        setCurrentTutor(null);
+        setSelectedTutorId('');
       }
     } catch (error) {
-      console.error(error);
+      console.error("Erro no prontuário:", error);
       toast.error('Erro ao carregar dados do prontuário.');
     } finally {
       setLoading(false);
     }
-  }, [id]);
+  }, [id, navigate]);
 
   useEffect(() => { loadData(); }, [loadData]);
 
