@@ -1,35 +1,43 @@
 import api from '../api/axiosInstance';
+// Usamos o 'import type' para satisfazer a regra 'verbatimModuleSyntax' do Netlify
 import type { AuthResponse } from '../types';
 
 interface LoginCredentials {
-  username: string; // Lembre-se: o swagger pede username, não email
+  username: string; 
   password: string;
 }
 
 export const authService = {
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    // 1. Faz a chamada e pega a resposta crua
+    // 1. Chamada para o endpoint de autenticação
     const response = await api.post('/autenticacao/login', credentials);
     
+    // Log de depuração (útil para homologação, remover em produção real)
     console.log('🔍 RESPOSTA COMPLETA DO LOGIN:', response); 
 
-    // 2. Tenta encontrar o token em TODOS os lugares comuns
-    // As vezes vem em data.token, data.accessToken, ou direto no data (se for string)
     const dados = response.data;
-    const token = dados?.token || dados?.accessToken || dados?.access_token || (typeof dados === 'string' ? dados : null);
+
+    // 2. Extração resiliente do token (suporta múltiplos formatos de API)
+    const token = dados?.token || 
+                  dados?.accessToken || 
+                  dados?.access_token || 
+                  (typeof dados === 'string' ? dados : null);
     
-    // 3. Verifica se achou
+    // 3. Validação e Persistência
     if (token) {
-        console.log('✅ Token encontrado e salvo:', token.substring(0, 15) + '...');
         localStorage.setItem('token', token);
         
-        // Se houver refresh token, salva também
-        if (dados?.refreshToken) localStorage.setItem('refreshToken', dados.refreshToken);
-        
-        return dados;
+        // Persistência de metadados se existirem
+        if (dados?.refreshToken) {
+          localStorage.setItem('refreshToken', dados.refreshToken);
+        }
+
+        // Retornamos os dados forçando o tipo AuthResponse para o compilador (Cast Sênior)
+        // Isso resolve o erro de 'membro não encontrado' durante o build
+        return dados as AuthResponse;
     } else {
-        console.error('❌ ERRO CRÍTICO: O campo de token não foi encontrado na resposta!', dados);
-        throw new Error('Erro de Autenticação: Token não encontrado na resposta do servidor.');
+        console.error('❌ Token não encontrado na resposta:', dados);
+        throw new Error('Erro de Autenticação: O servidor não retornou um token válido.');
     }
   },
 

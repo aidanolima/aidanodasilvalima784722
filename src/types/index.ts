@@ -52,3 +52,16 @@ export interface AuthState {
   token: string | null;
   isAuthenticated: boolean;
 }
+
+export interface AuthResponse {
+  token?: string;
+  accessToken?: string;
+  access_token?: string;
+  refreshToken?: string;
+  user?: {
+    id: number;
+    nome: string;
+    username: string;
+    // adicione outros campos do usuário se houver
+  };
+}

@@ -4,12 +4,12 @@ import { PetCard } from './PetCard';
 import '@testing-library/jest-dom';
 
 const mockPet = {
-  id: 1,
-  nome: 'Luna',
-  especie: 'GATO',
-  idade: 3,
-  raca: 'Siamês',
-  urlFoto: ''
+  id: 239,
+  nome: "Rex",
+  especie: 'Cachorro' as any, // Adicione o 'as any' ou o tipo 'as PetEspecie'
+  idade: 5,
+  raca: "ChowChow",
+  urlFoto: ""
 };
 
 describe('PetCard', () => {
