@@ -1,6 +1,8 @@
 # Pet Admin GOV
 
 # aidanodasilvalima78472261468
+# https://aidanodasilvalima784722.netlify.app/
+
 > **Projeto FrontEnd da Avaliação SEPLAG-MT:** PetAdmin - Sistema de Gestão e Prontuário Digital Veterinário
 > **Versão:** 1.0.0 © 2026 PetManager Gov - By Áidano Lima
 > **Status:** Iniciado (Versão com a estrutura inicial do projeto e configurações de ambiente)
@@ -201,3 +203,8 @@ O indicador de **"Pets Vinculados"** no Dashboard foi implementado com uma lógi
 2.  **Dados de Inscrição:** Adicionei a vaga explicitamente no cabeçalho, pois o item **6.2.2** exige que o README contenha os "dados de inscrição" e a "vaga".
 3.  **Correção de Erros:** Removi as duplicidades de comandos Docker e corrigi termos como "sContainerização" para "Conteinerização".
 4.  **Testes:** Adicionei uma seção clara de como executar os testes, pois o edital pontua a facilidade de "executar/testar" o projeto.
+
+### 📝 Dados de Inscrição
+Candidato: Áidano da silva Lima
+Vaga: Perfil FrontEnd - Sênior
+Identificador: aidanodasilvalima78472261468
