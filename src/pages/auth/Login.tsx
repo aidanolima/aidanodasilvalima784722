@@ -51,7 +51,7 @@ export function Login() {
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 mb-2">
             <PawPrint size={24} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">Acesse o Sistema</h1>
+          <h1 className="text-2xl font-bold text-slate-800">Acesse o Sistema PetAdminGov</h1>
           <p className="text-slate-500">Gerencie pets e tutores em um só lugar</p>
         </div>
 
