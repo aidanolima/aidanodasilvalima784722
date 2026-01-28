@@ -218,7 +218,7 @@ Para não comprometer a usabilidade, implementei uma estratégia de **Navegaçã
 
 O indicador de **"Pets Vinculados"** no Dashboard foi implementado com uma lógica de agregação reativa. 
 
-* **Observação Técnica:** Devido à arquitetura de *Lazy Loading* do Backend, as rotas de listagem massiva (`/v1/pets` e `/v1/tutores`) não retornam os objetos de relacionamento por padrão para otimização de banda.
+* **Observação Técnica:** Devido à arquitetura de *Lazy Loading* do Backend, as rotas de listagem massiva (`/v1/pets` e `/v1/tutores`) não retornam os objetos de relacionamento por padrão para otimização de banda **Por isso só retona "0"** tive essa dificuldade.
 * **Decisão de Engenharia:** Optei por não realizar chamadas individuais (N+1 queries) para cada registro no Dashboard, priorizando a performance e o tempo de resposta da interface (*First Contentful Paint*). Em um ambiente de produção, este indicador seria suprido por um endpoint de agregação via banco de dados (ex: `COUNT` com `JOIN`) ou via serviço de cache (Redis).
 
 ### 📝 Ponderações Finais:
