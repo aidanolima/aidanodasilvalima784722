@@ -24,21 +24,36 @@ export function Login() {
     setLoading(true);
 
     try {
+      // 1. Executa o Login
       await authService.login({
         username: formData.username, 
         password: formData.password  
       });
       
-      toast.success('Login realizado com sucesso!');
+      // 2. Sucesso
+      toast.success('Login realizado com sucesso! Bem-vindo.');
       navigate('/dashboard'); 
+
     } catch (error: any) {
-      console.error('Erro no login:', error);
+      console.error('Erro detalhado no login:', error);
       
-      // MELHORIA: Tenta pegar a mensagem específica do backend, se houver
-      const mensagemErro = error.response?.data?.message || 'Credenciais inválidas ou erro de conexão.';
-      toast.error(mensagemErro);
+      // 3. Tratamento de Erro Especializado (Resolve o "vácuo" de informação)
+      const status = error.response?.status;
+      
+      if (status === 401 || status === 403) {
+        // Erro específico de usuário/senha
+        toast.error('Usuário ou senha incorretos. Tente novamente.');
+      } else if (error.code === 'ERR_NETWORK') {
+        // Erro de conexão/internet/API fora do ar
+        toast.error('Não foi possível conectar ao servidor. Verifique sua conexão.');
+      } else {
+        // Fallback para mensagem do backend ou genérica
+        const mensagemFallback = error.response?.data?.message || 'Ocorreu um erro inesperado. Tente mais tarde.';
+        toast.error(mensagemFallback);
+      }
       
     } finally {
+      // 4. Libera a interface
       setLoading(false);
     }
   };
@@ -65,6 +80,7 @@ export function Login() {
             onChange={handleChange}
             required
             autoFocus
+            disabled={loading} // Bloqueia edição durante o load
           />
           
           <Input 
@@ -75,19 +91,21 @@ export function Login() {
             value={formData.password}
             onChange={handleChange}
             required
+            disabled={loading} // Bloqueia edição durante o load
           />
 
           <Button 
             type="submit" 
             className="w-full mt-2" 
             isLoading={loading}
+            disabled={loading} // Evita duplo clique
           >
-            Entrar
+            {loading ? 'Autenticando...' : 'Entrar'}
           </Button>
         </form>
 
         <div className="text-center text-xs text-slate-400">
-          Versão 1.0.0 &copy; 2026 PetAdminGov - By Áidano Lima
+          Versão 2.0 Sênior &copy; 2026 PetAdminGov - By Áidano Lima
         </div>
       </div>
     </div>
