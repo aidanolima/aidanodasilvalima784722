@@ -1,11 +1,11 @@
 # Pet Admin GOV
 
+> **Projeto FrontEnd da Avaliação SEPLAG-MT:** PetAdminGov - Sistema de Gestão de Pets e Tutores
+> **Versão:** 1.6.2 © 2026 PetManager Gov - By Áidano Lima
+> **Status:** Finalizado.
+> 
 > **aidanodasilvalima784722**
 > **https://aidanodasilvalima784722.netlify.app/**
-
-> **Projeto FrontEnd da Avaliação SEPLAG-MT:** PetAdminGov - Sistema de Gestão de Pets e Tutores
-> **Versão:** 1.0.0 © 2026 PetManager Gov - By Áidano Lima
-> **Status:** Final 
 
 O **Pet Admin GOV** é um painel de administração senior desenvolvido para gerenciar pets e seus tutores de forma centralizada. O sistema permite a visualização, criação, edição e exclusão de registros, focando na integridade dos dados e na rastreabilidade dos vínculos entre animais e responsáveis.
 
